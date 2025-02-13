@@ -24,8 +24,7 @@ class BaseModel(nn.Module):
         self.manifold_name = args.manifold
         if args.c is not None:
             self.c = torch.tensor([args.c])
-            if not args.cuda == -1:
-                self.c = self.c.to(args.device)
+            self.c = self.c.to(args.device)
         else:
             self.c = nn.Parameter(torch.Tensor([1.]))
         self.manifold = getattr(manifolds, self.manifold_name)()
@@ -37,7 +36,7 @@ class BaseModel(nn.Module):
     def encode(self, x, adj):
         if self.manifold.name == 'Hyperboloid':
             o = torch.zeros_like(x)
-            x = torch.cat([o[:, 0:1], x], dim=1)
+            x = torch.cat([o[:, 0:1], x], dim=1) # Add zero to first column, adapting datapoints to hyperboloid
         h = self.encoder.encode(x, adj)
         return h
 
@@ -67,8 +66,7 @@ class NCModel(BaseModel):
             self.weights = torch.Tensor([1., 1. / data['labels'][idx_train].mean()])
         else:
             self.weights = torch.Tensor([1.] * args.n_classes)
-        if not args.cuda == -1:
-            self.weights = self.weights.to(args.device)
+        self.weights = self.weights.to(args.device)
 
     def decode(self, h, adj, idx):
         output = self.decoder.decode(h, adj)
@@ -122,7 +120,7 @@ class LPModel(BaseModel):
             pos_scores = pos_scores.cpu()
             neg_scores = neg_scores.cpu()
         labels = [1] * pos_scores.shape[0] + [0] * neg_scores.shape[0]
-        preds = list(pos_scores.data.numpy()) + list(neg_scores.data.numpy())
+        preds = list(pos_scores.data.cpu().numpy()) + list(neg_scores.data.cpu().numpy())
         roc = roc_auc_score(labels, preds)
         ap = average_precision_score(labels, preds)
         metrics = {'loss': loss, 'roc': roc, 'ap': ap}

@@ -223,6 +223,22 @@ To train train a HGCN node classification model on Cora and Pubmed datasets, pre
 
 ```python train.py --task nc --dataset pubmed --model GAT --lr 0.01 --dim 16 --num-layers 2 --act elu --bias 1 --dropout 0.5 --weight-decay 0.0005 --alpha 0.2 --n-heads 4 --manifold Euclidean --log-freq 5 --cuda 0```
 
+## Run commands for creation
+* MLP (Disease, LP):
+
+```python train.py --task lp --dataset disease_lp --model MLP --lr 0.01 --dim 16 --num-layers 2 --act None --bias 0 --dropout 0.2 --weight-decay 0.001 --manifold Euclidean --log-freq 5```
+
+* MLP (Disease-M, LP):
+
+```python train.py --task lp --dataset disease_lp --model MLP --lr 0.01 --dim 16 --num-layers 2 --act None --bias 0 --dropout 0.2 --weight-decay 0.001 --manifold Euclidean --log-freq 5```
+
+* MLP (Disease, NC):
+
+```python train.py --task nc --dataset disease_nc --model MLP --lr 0.01 --dim 16 --num-layers 2 --act None --bias 0 --dropout 0.2 --weight-decay 0.001 --manifold Euclidean --log-freq 5 ```
+
+* MLP (Disease-M, NC):
+
+```python train.py --task nc --dataset disease_nc --model MLP --lr 0.01 --dim 16 --num-layers 2 --act None --bias 0 --dropout 0.2 --weight-decay 0.001 --manifold Euclidean --log-freq 5 ```
 ## Citation
 
 If you find this code useful, please cite the following paper: 

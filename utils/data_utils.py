@@ -26,6 +26,9 @@ def load_data(args, datapath):
     data['adj_train_norm'], data['features'] = process(
             data['adj_train'], data['features'], args.normalize_adj, args.normalize_feats
     )
+    if args.device.type == 'mps' and data['adj_train_norm'].is_sparse:
+        data['adj_train_norm'] = data['adj_train_norm'].to_dense()
+        
     if args.dataset == 'airport':
         data['features'] = augment(data['adj_train'], data['features'])
     return data

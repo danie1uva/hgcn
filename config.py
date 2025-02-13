@@ -1,5 +1,5 @@
 import argparse
-
+from datetime import datetime
 from utils.train_utils import add_flags_from_config
 
 config_args = {
@@ -22,7 +22,8 @@ config_args = {
         'gamma': (0.5, 'gamma for lr scheduler'),
         'print-epoch': (True, ''),
         'grad-clip': (None, 'max norm for gradient clipping, or None for no gradient clipping'),
-        'min-epochs': (100, 'do not early stop before min-epochs')
+        'min-epochs': (100, 'do not early stop before min-epochs'),
+        'run_time': (datetime.now().strftime("%Y-%m-%d_%H-%M-%S"), 'run time')
     },
     'model_config': {
         'task': ('nc', 'which tasks to train on, can be any of [lp, nc]'),

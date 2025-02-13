@@ -1,0 +1,40 @@
+name: hgcn
+channels:
+  - conda-forge
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - numpy
+  - scipy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - pytorch
+  - torchvision
+  - torchaudio
+  - jupyterlab
+  - notebook
+  - ipython
+  - ipykernel
+  - tqdm
+  - requests
+  - yaml
+  - zlib
+  - sqlite
+  - xz
+  - traitlets
+  - terminado
+  - widgetsnbextension
+  - nbconvert
+  - nbformat
+  - pyqt
+  - pip:
+      - bleach
+      - isodate
+      - rdflib
+      - sparqlwrapper
+      - wikidata
+prefix: /Users/daniel/miniconda3/envs/hgcn
